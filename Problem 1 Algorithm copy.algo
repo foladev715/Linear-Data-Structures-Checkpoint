@@ -1,0 +1,42 @@
+// The problem: Given two sets of elements, find the sum of all distinct elements from the set. In other words, find the sum of all 
+//              elements which are present in either of the given set
+// The constraints:-Only elements that appear once when both sets are compared should be included in the sum
+                // -Give two solutions to the problem, each using a different type of data structure from the other
+// The input: The two elements
+// The output: A console.log with both solutions producing the same sum
+// The solution: The solution in this instance consists of using the two data structures to find the distinct elements in the two sets of 
+// data and summing them up to produce the final result.
+
+Soulution 1- Distinct_Element_Sum ALGORITHM (Array Method) 
+VAR
+    const set1 = [3, 1, 7, 9];
+    const set2 = [2, 4, 1, 9, 3];
+BEGIN
+    let difference = set1
+    .filter((x) => !set2.includes(x))
+    .concat(set2.filter((x) => !set1.includes(x)));
+
+    let sum = 0;
+    sum = difference.reduce((a, b) => a + b, 0);
+END
+
+Soulution 2- Distinct_Element_Sum ALGORITHM (Hash Table Method) 
+VAR
+    const set1 = [3, 1, 7, 9];
+    const set2 = [2, 4, 1, 9, 3];
+BEGIN
+    const set3 = set1.concat(set2);
+    const set3Hash = Object.fromEntries([
+    ...set3.reduce(
+    (map, key) => map.set(key, (map.get(key) || 0) + 1),
+    new Map()
+  ),
+]);
+    const keyArr = [];
+    for (const [key, value] of Object.entries(set3Hash)) {
+    if (value === 1) {
+    keyArr.push(parseInt(key));
+    sum = keyArr.reduce((a, b) => a + b, 0);
+  }
+}
+END
